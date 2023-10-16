@@ -3,19 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Start Parking Session</title>
 </head>
-<body>
+<body class="font-['Open_Sans'] text-xs flex flex-col h-screen">
   <header class="flex justify-center items-center h-20 bg-white border border-gray-100">
     <img src="./assets/Logo.png" alt="logo">
   </header>
-  <div class="relative flex items-center justify-center">
+  <main class="flex-grow flex items-center justify-center">
     <img src="./assets/google-map.png" alt="Google Map">
-    <button class="absolute top-3/4 bg-teal-800 text-white text-sm py-4 px-16 rounded">
+    <button class="absolute top-3/4 bg-teal-800 text-white text-sm py-4 px-16 rounded font-['Poppins'] font-medium">
       Start Parking Session
     </button>
-  </div>
+  </main>
   <nav class="h-20 flex items-center justify-center border-gray-100 mx-8">
     <div class="w-full flex justify-between text-xs text-teal-800">
       <a href="#" class="flex flex-col justify-center items-center bg-teal-500 text-white rounded p-2">
