@@ -36,10 +36,57 @@
     </div>
 
     <!-- Div for the parking zone, fee per hour and status titles -->
-    <div class="flex flex-row justify-between items-center">
-      <div class="text-xs text-gray-400 text-2xl-xs mt-5">Zone</div>
-      <div class="text-xs text-gray-400 text-2xl-xs mt-5">Fee per hour</div>
-      <div class="text-xs text-gray-400 text-2xl-xs mt-5">Status</div>
+    <div class="flex flex-row justify-between items-center mx-8 p-2">
+      <div
+        class="text-xs h-10 text-center text-2xl-xs text-gray-400 mt-5 border-r-2 border-gray-100k pr-5">
+        Zone
+        <p class="text-black text-base">ABC</p>
+      </div>
+      <div
+        class="text-xs text-center h-10 text-gray-400 text-2xl-xs mt-5 border-r-2 border-gray-100 pr-5">
+        Fee per hour
+        <p class="text-black text-base">$2.5 CAD</p>
+      </div>
+      <div class="text-xs text-center h-10 text-2xl-xs mt-5 text-gray-400 pr-5">
+        Status
+        <p class="text-black text-base">Active</p>
+      </div>
+    </div>
+
+    <!-- Div for the calculated parking fee -->
+    <div class="h-40 bg-white flex flex-col items-center justify-center">
+      <div class="text-xs text-gray-400 text-2xl-xs mb-2">
+        Calculated Parking Fee
+      </div>
+      <div class="text-teal-500 font-bold text-3xl tracking-widest">$4.125</div>
+    </div>
+
+    <!-- Div for the location box -->
+    <div
+      class="h-20 bg-white flex flex-row items-center justify-between border rounded m-2 p-2">
+      <div class="flex flex-col ml-3">
+        <div class="text-xs text-gray-400 text-base">Location</div>
+        <div class="text-emerald-950 text-base">
+          1234 Main St, Vancouver, BC
+        </div>
+      </div>
+
+      <a href="#" class="relative right-0 top-0">
+        <img src="./assets/map.png" class="h-10 w-auto mb-1 mr-3" alt="logo" />
+      </a>
+    </div>
+
+    <!-- Div for the Take me to my vehicle button -->
+    <div
+      class="h-20 bg-white flex flex-row items-center justify-between border rounded m-2 p-2">
+      <button class="bg-teal-800 h-10 px-3 w-full text-white m-3 mr-8">
+        Take me to my vehicle
+      </button>
+    </div>
+    
+      <button class="bg-gray-300 h-10 text-white px-3 rounded text-white m-3">
+        End parking session
+      </button>
     </div>
   </body>
 </html>
