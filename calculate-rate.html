@@ -3,90 +3,97 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Poppins:wght@400;500&display=swap"
+      rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Calculate Rate</title>
   </head>
-  <body>
+  <body class="font-['Open_Sans']">
     <header
       class="flex justify-center items-center h-20 bg-white border border-gray-100">
       <img src="./assets/Logo.png" alt="logo" />
     </header>
 
     <!-- Div for the car image -->
-    <div class="h-40 bg-teal-800 flex flex-col items-center justify-center">
-      <a href="#" class="relative left-0 top-0">
-        <img src="./assets/back-white.png" class="h-5 mb-1" alt="logo" />
-      </a>
+    <div
+      class="h-48 bg-teal-500 flex flex-col items-center justify-center px-6">
+      <div class="flex justify-start w-full pt-6">
+        <a href="#">
+          <img src="./assets/back-white.png" class="h-5 mb-1" alt="logo" />
+        </a>
+      </div>
       <a href="#" class="text-white rounded p-2">
         <img src="./assets/white-car.png" class="h-20 w-auto mb-1" alt="logo" />
       </a>
-      <div
-        class="h-40 bg-teal-800 flex justify-between items-center justify-center mx-8">
-        <div class="text-white font-bold px-4">Tony's Car ⭐</div>
-        <div class="text-white px-4">GRP2308</div>
+      <div class="flex justify-between w-full items-center justify-center pb-6">
+        <div class="text-white font-bold">Tony's Car ⭐</div>
+        <div class="text-white">GRP2308</div>
       </div>
     </div>
-
-    <!-- Div for the parking time -->
-    <div class="h-40 bg-white flex flex-col items-center justify-center">
-      <div class="text-xs text-gray-400 text-2xl-xs mt-5">Parking Time</div>
-      <div class="text-emerald-950 font-bold text-3xl tracking-widest">
-        01:39:00
-      </div>
-    </div>
-
-    <!-- Div for the parking zone, fee per hour and status titles -->
-    <div class="flex flex-row justify-between items-center mx-8 p-2">
-      <div
-        class="text-xs h-10 text-center text-2xl-xs text-gray-400 mt-5 border-r-2 border-gray-100k pr-5">
-        Zone
-        <p class="text-black text-base">ABC</p>
-      </div>
-      <div
-        class="text-xs text-center h-10 text-gray-400 text-2xl-xs mt-5 border-r-2 border-gray-100 pr-5">
-        Fee per hour
-        <p class="text-black text-base">$2.5 CAD</p>
-      </div>
-      <div class="text-xs text-center h-10 text-2xl-xs mt-5 text-gray-400 pr-5">
-        Status
-        <p class="text-black text-base">Active</p>
-      </div>
-    </div>
-
-    <!-- Div for the calculated parking fee -->
-    <div class="h-40 bg-white flex flex-col items-center justify-center">
-      <div class="text-xs text-gray-400 text-2xl-xs mb-2">
-        Calculated Parking Fee
-      </div>
-      <div class="text-teal-500 font-bold text-3xl tracking-widest">$4.125</div>
-    </div>
-
-    <!-- Div for the location box -->
-    <div
-      class="h-20 bg-white flex flex-row items-center justify-between border rounded m-2 p-2">
-      <div class="flex flex-col ml-3">
-        <div class="text-xs text-gray-400 text-base">Location</div>
-        <div class="text-emerald-950 text-base">
-          1234 Main St, Vancouver, BC
+    <main class="mx-6">
+      <!-- Div for the parking time -->
+      <div class="bg-white flex flex-col items-center justify-center">
+        <div class="text-xs text-gray-400 text-2xl-xs mt-5">Parking Time</div>
+        <div class="text-emerald-950 font-bold text-4xl tracking-widest">
+          01:39:00
         </div>
       </div>
 
-      <a href="#" class="relative right-0 top-0">
-        <img src="./assets/map.png" class="h-10 w-auto mb-1 mr-3" alt="logo" />
-      </a>
-    </div>
+      <!-- Div for the parking zone, fee per hour and status titles -->
+      <div class="flex justify-around items-center mb-5">
+        <div
+          class="text-xs h-10 text-center text-gray-400 mt-5 w-[83px] border-r-2 border-gray-100">
+          Zone
+          <p class="text-black text-sm">ABC</p>
+        </div>
+        <div
+          class="text-xs text-center h-10 flex-grow text-gray-400 mt-5 border-r-2 border-gray-100">
+          Fee per hour
+          <p class="text-black text-sm">$2.5 CAD</p>
+        </div>
+        <div class="text-xs text-center h-10 = w-[83px] mt-5 text-gray-400">
+          Status
+          <p class="text-black text-sm">Active</p>
+        </div>
+      </div>
 
-    <!-- Div for the Take me to my vehicle button -->
-    <div
-      class="h-20 bg-white flex flex-row items-center justify-between border rounded m-2 p-2">
-      <button class="bg-teal-800 h-10 px-3 w-full text-white m-3 mr-8">
-        Take me to my vehicle
-      </button>
-    </div>
-    
-      <button class="bg-gray-300 h-10 text-white px-3 rounded text-white m-3">
-        End parking session
-      </button>
-    </div>
+      <!-- Div for the calculated parking fee -->
+      <div class="bg-white flex flex-col items-center justify-center my-4">
+        <div class="text-xs text-gray-400">Calculated Parking Fee</div>
+        <div class="text-teal-500 font-bold text-4xl tracking-widest">
+          $4.125
+        </div>
+      </div>
+
+      <!-- Div for the location box -->
+      <div
+        class="h-20 bg-white flex flex-row items-center justify-between mb-4 border rounded p-2">
+        <div class="flex flex-col">
+          <div class="text-xs text-gray-400 text-base">Location</div>
+          <div class="text-emerald-950 text-base">
+            1234 Main St, Vancouver, BC
+          </div>
+        </div>
+
+        <a href="#">
+          <img src="./assets/map.png" class="h-10 w-auto" alt="logo" />
+        </a>
+      </div>
+
+      <!-- Div for the Take me to my vehicle button -->
+      <div
+        class="text-sm gap-4 font-['Poppins'] bg-white flex flex-col items-center w-full justify-between">
+        <button class="bg-teal-500 h-12 w-full text-white rounded">
+          Take me to my vehicle
+        </button>
+
+        <button class="bg-gray-300 h-12 w-full rounded text-white">
+          End parking session
+        </button>
+      </div>
+    </main>
   </body>
 </html>
