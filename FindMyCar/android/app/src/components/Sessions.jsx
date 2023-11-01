@@ -1,6 +1,7 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { Button, Divider, Layout, TopNavigation } from '@ui-kitten/components';
+import Header from './Header';
 
 const SessionsScreen = ({ navigation }) => {
   const navigateDetails = () => {
@@ -9,6 +10,8 @@ const SessionsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Header />
+      <Divider />
       <TopNavigation title="Sessions" alignment="center" />
       <Divider />
       <Layout

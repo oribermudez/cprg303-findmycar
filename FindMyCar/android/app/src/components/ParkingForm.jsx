@@ -8,6 +8,7 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
+import Header from './Header';
 
 const BackIcon = props => <Icon {...props} name="arrow-back" />;
 
@@ -22,6 +23,8 @@ const ParkingFormScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Header />
+      <Divider />
       <TopNavigation
         title="Parking Form"
         alignment="center"
