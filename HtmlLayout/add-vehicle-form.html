@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Poppins:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./main.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Add Vehicle Form</title>
+  </head>
+  <body class="font-['Open_Sans'] text-xs flex flex-col h-screen">
+    <header
+      class="flex justify-center items-center h-20 bg-white border-b border-gray-100"
+    >
+      <img src="./assets/Logo.png" alt="logo" />
+    </header>
+    <div
+      class="w-full flex items-center justify-center mb-6 py-4 border-b border-gray-100 px-6 bg-teal-500"
+    >
+      <a href="start-parking-session.html">
+        <img class="h-4" src="./assets/back-light-gray.png" alt="Back Button" />
+      </a>
+      <span class="mx-auto font-['Poppins'] font-medium text-white"
+        >Add Vehicle Form</span
+      >
+    </div>
+    <main class="flex flex-grow flex-col items-center justify-start mx-6">
+      <div class="flex flex-col mb-4">
+        <label class="font-['Poppins'] mb-1 text-slate-400 ml-4">VEHICLE Make</label>
+        
+        <input
+        type="text"
+        class="bg-slate-100 border border-slate-200 rounded w-80 h-10 px-4 py-2 text-sm focus:bg-white focus:ring-teal-500 focus:border-teal-500 focus:outline-none"
+        value="GMC"
+      />
+      </div>
+      <div class="flex flex-col mb-4">
+        <label class="font-['Poppins'] mb-1 text-slate-400 ml-4"
+          >MODEL</label
+        >
+        <input
+          type="text"
+          class="bg-slate-100 border border-slate-200 rounded w-80 h-10 px-4 py-2 text-sm focus:bg-white focus:ring-teal-500 focus:border-teal-500 focus:outline-none"
+          value="Terrain"
+        />
+      </div>
+      <div class="flex flex-col mb-4">
+        <label class="font-['Poppins'] mb-1 text-slate-400 ml-4"
+          >YEAR</label
+        >
+        <select class="bg-slate-100 border border-slate-200 rounded w-80 h-10 px-4 py-2 text-sm focus:bg-white focus:ring-teal-500 focus:border-teal-500 focus:outline-none">
+          
+            <option value="">Select Year</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+            <option value="2012">2012</option>
+            <!-- Add more years as needed -->
+          
+        </select>
+      </div>
+      <div class="flex flex-col mb-4">
+        <label class="font-['Poppins'] mb-1 text-slate-400 ml-4"
+          >COLOR</label
+          >
+        <input
+          type="text"
+          class="bg-slate-100 border border-slate-200 rounded w-80 h-10 px-4 py-2 text-sm focus:bg-white focus:ring-teal-500 focus:border-teal-500 focus:outline-none"
+          value="Blue"
+        />
+      </div>
+      <div class="flex flex-col mb-4">
+        <label class="font-['Poppins'] mb-1 text-slate-400 ml-4">PLATE Number</label>
+        <input
+          type="text"
+          class="bg-slate-100 border border-slate-200 rounded w-80 h-10 px-4 py-2 text-sm focus:bg-white focus:ring-teal-500 focus:border-teal-500 focus:outline-none"
+          value="GPR2308"
+        />
+      </div>
+
+      <div class="flex flex-col mb-4">
+        <label class="font-['Poppins'] mb-1 text-slate-400 ml-4">ALIAS</label>
+        <input
+          type="text"
+          class="bg-slate-100 border border-slate-200 rounded w-80 h-10 px-4 py-2 text-sm focus:bg-white focus:ring-teal-500 focus:border-teal-500 focus:outline-none"
+          value="Tony's Car"
+        />
+      </div>
+      <a
+        href="./add-vehicle-form.html"
+        class="w-80 bg-teal-500 text-white py-4 px-16 rounded font-['Poppins'] my-4 text-center"
+      >
+        Add Vehicle
+      </a>
+    </main>
+  </body>
+</html>
