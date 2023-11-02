@@ -8,7 +8,7 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import Header from './Header';
+import Header from '../header/Header';
 
 const BackIcon = props => <Icon {...props} name="arrow-back" />;
 

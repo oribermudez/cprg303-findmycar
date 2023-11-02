@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import { Button, Divider, Layout, TopNavigation } from '@ui-kitten/components';
-import Header from './Header';
+import Header from '../header/Header';
 
 const SessionsScreen = ({ navigation }) => {
   const navigateDetails = () => {

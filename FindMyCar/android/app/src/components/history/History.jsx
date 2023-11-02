@@ -8,13 +8,13 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import Header from './Header';
+import Header from '../header/Header';
 
 const BackIcon = props => <Icon {...props} name="arrow-back" />;
 
-const ParkingFormScreen = ({ navigation }) => {
+const HistoryScreen = ({ navigation }) => {
   const navigateBack = () => {
-    navigation.navigate('Parking');
+    navigation.goBack();
   };
 
   const BackAction = () => (
@@ -26,7 +26,7 @@ const ParkingFormScreen = ({ navigation }) => {
       <Header />
       <Divider />
       <TopNavigation
-        title="Parking Form"
+        title="History"
         alignment="center"
         accessoryLeft={BackAction}
       />
@@ -39,4 +39,4 @@ const ParkingFormScreen = ({ navigation }) => {
   );
 };
 
-export default ParkingFormScreen;
+export default HistoryScreen;

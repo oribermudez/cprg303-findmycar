@@ -6,14 +6,14 @@ import {
   BottomNavigationTab,
   Icon, // Import the Icon component
 } from '@ui-kitten/components';
-import ParkingScreen from './components/Parking';
-import VehiclesScreen from './components/Vehicles';
-import SessionsScreen from './components/Sessions';
-import HistoryScreen from './components/History';
-import AddVehicleScreen from './components/AddVehicle';
-import VehicleDetailsScreen from './components/VehicleDetails';
-import ActiveSessionScreen from './components/ActiveSession';
-import ParkingFormScreen from './components/ParkingForm';
+import ParkingScreen from './components/parking/Parking';
+import VehiclesScreen from './components/vehicles/Vehicles';
+import SessionsScreen from './components/sessions/Sessions';
+import HistoryScreen from './components/history/History';
+import AddVehicleScreen from './components/vehicles/AddVehicle';
+import VehicleDetailsScreen from './components/vehicles/VehicleDetails';
+import ActiveSessionScreen from './components/sessions/ActiveSession';
+import ParkingFormScreen from './components/parking/ParkingForm';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

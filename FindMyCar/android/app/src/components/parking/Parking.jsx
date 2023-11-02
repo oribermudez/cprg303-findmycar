@@ -3,13 +3,26 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Divider } from '@ui-kitten/components';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import Header from './Header';
+import Header from '../header/Header';
 
 import { check, PERMISSIONS, request } from 'react-native-permissions';
 
+const initialLocation = {
+  latitude: 51.0276233,
+  longitude: -114.087835,
+  latitudeDelta: 0.02,
+  longitudeDelta: 0.02,
+};
+
 const ParkingScreen = ({ navigation }) => {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState(initialLocation);
   const mapRef = useRef(null);
+
+  const goToLocation = () => {
+    if (mapRef.current && location) {
+      mapRef.current.animateToRegion(location, 3 * 1000);
+    }
+  };
 
   useEffect(() => {
     check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
@@ -28,7 +41,7 @@ const ParkingScreen = ({ navigation }) => {
             break;
           case 'denied':
             request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(result => {
-              // Handle the result
+              // Handle the denied scenario
             });
             break;
           default:
@@ -41,7 +54,11 @@ const ParkingScreen = ({ navigation }) => {
       });
   }, []);
 
-  const navigateDetails = () => {
+  useEffect(() => {
+    goToLocation();
+  }, [location]);
+
+  const navigateParkingForm = () => {
     navigation.navigate('ParkingForm');
   };
 
@@ -53,7 +70,7 @@ const ParkingScreen = ({ navigation }) => {
         <MapView
           ref={mapRef}
           style={styles.mapStyle}
-          initialRegion={{
+          region={{
             latitude: location.latitude,
             longitude: location.longitude,
             latitudeDelta: 0.0922,
@@ -71,7 +88,7 @@ const ParkingScreen = ({ navigation }) => {
         </MapView>
       )}
       <View style={styles.buttonContainer}>
-        <Button style={styles.button} onPress={navigateDetails}>
+        <Button style={styles.button} onPress={navigateParkingForm}>
           Start Parking Session
         </Button>
       </View>

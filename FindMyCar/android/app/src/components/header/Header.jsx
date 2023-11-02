@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff', // You can change the background color to your preference
+    backgroundColor: '#fff',
   },
   logo: {
     width: 180, // Adjust the width and height as needed for your logo
