@@ -3,13 +3,13 @@ import { ScrollView, View, StyleSheet, Pressable, Image } from 'react-native';
 import { Divider, Icon, Input, Text, Button } from '@ui-kitten/components';
 import Header from '../header/Header';
 import { vehicleFunction } from './VehicleFactory';
+import { useVehicleContext } from '../../VehicleContext';
 
 const VehicleDetailsScreen = ({ navigation, route }) => {
   const { vehicle } = route.params;
   const [disabled, setDisabled] = useState(true);
   const [editedVehicleData, setEditedVehicleData] = useState({ ...vehicle });
 
-  // Use useEffect to update editedVehicleData when route.params change
   useEffect(() => {
     setEditedVehicleData({ ...vehicle });
   }, [vehicle]);
