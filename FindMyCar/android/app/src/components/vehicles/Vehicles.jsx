@@ -1,59 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, FlatList } from 'react-native';
 import { Divider, Button, TopNavigation } from '@ui-kitten/components';
 import Header from '../header/Header';
 import VehicleCard from './VehicleCard';
+import vehicleData from './VehicleData';
+import { vehicleFactory } from './VehicleFactory';
 
 const VehiclesScreen = ({ navigation }) => {
+  const [vehicles, setVehicles] = useState(vehicleData);
+
   const navigateAddVehicle = () => {
     navigation.navigate('AddVehicle');
   };
 
-  const navigateVehicleDetails = () => {
-    console.log('hola, entre');
-    navigation.navigate('VehicleDetails');
+  const navigateVehicleDetails = vehicle => {
+    navigation.navigate('VehicleDetails', { vehicle });
   };
-
-  const vehicleData = [
-    {
-      id: 1,
-      alias: "Tony's Car",
-      vehicle: 'GMC Terrain',
-      plates: 'ABC2308',
-      favorite: true,
-    },
-    {
-      id: 2,
-      alias: 'My Car',
-      vehicle: 'Mazda 3',
-      plates: 'DEF2308',
-      favorite: false,
-    },
-    {
-      id: 3,
-      alias: "Mom's Car",
-      vehicle: 'Hyndai Elantra',
-      plates: 'GHI2308',
-      favorite: false,
-    },
-    {
-      id: 4,
-      alias: "Mario's Car",
-      vehicle: 'Honda Civic',
-      plates: 'JKL2308',
-      favorite: false,
-    },
-  ];
 
   const renderVehicleCard = ({ item }) => (
     <VehicleCard
       alias={item.alias}
-      vehicle={item.vehicle}
+      vehicle={`${item.vehicleMake} ${item.model}`}
       plates={item.plates}
       favorite={item.favorite}
-      onPress={navigateVehicleDetails}
+      onPress={() => navigateVehicleDetails(item)}
     />
   );
+
+  const editVehicle = updatedData => {
+    setVehicles(prevVehicles => {
+      return prevVehicles.map(vehicle => {
+        if (vehicle.id === updatedData.id) {
+          return { ...vehicle, ...updatedData };
+        }
+        return vehicle;
+      });
+    });
+  };
+
+  vehicleFactory(editVehicle);
 
   return (
     <SafeAreaView>
@@ -70,7 +55,7 @@ const VehiclesScreen = ({ navigation }) => {
       />
       <Divider />
       <FlatList
-        data={vehicleData}
+        data={vehicles}
         renderItem={renderVehicleCard}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={styles.flatListContainer}

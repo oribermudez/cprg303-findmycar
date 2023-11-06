@@ -3,8 +3,8 @@ import { Card, Text, Icon } from '@ui-kitten/components';
 import { View, Image, StyleSheet, Pressable } from 'react-native';
 
 const VehicleCard = ({ alias, vehicle, plates, favorite, onPress }) => (
-  <Pressable onPress={onPress}>
-    <Card style={styles.card}>
+  <Card style={styles.card}>
+    <Pressable onPress={onPress}>
       <View style={styles.box}>
         <View style={styles.dataBox}>
           <View style={styles.aliasContainer}>
@@ -26,8 +26,8 @@ const VehicleCard = ({ alias, vehicle, plates, favorite, onPress }) => (
         </View>
         <Image source={require('./car.png')} style={styles.carImage} />
       </View>
-    </Card>
-  </Pressable>
+    </Pressable>
+  </Card>
 );
 
 const styles = StyleSheet.create({

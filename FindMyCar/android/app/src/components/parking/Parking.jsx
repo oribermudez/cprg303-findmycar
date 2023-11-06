@@ -73,8 +73,8 @@ const ParkingScreen = ({ navigation }) => {
           region={{
             latitude: location.latitude,
             longitude: location.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
           }}>
           <Marker
             draggable
