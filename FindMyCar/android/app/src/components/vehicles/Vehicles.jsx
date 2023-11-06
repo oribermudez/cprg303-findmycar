@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { SafeAreaView, StyleSheet, Text, FlatList } from 'react-native';
 import { Divider, Button, TopNavigation } from '@ui-kitten/components';
 import Header from '../header/Header';
 import VehicleCard from './VehicleCard';
-import { vehicleFactory } from './VehicleFactory';
 import { useVehicleContext } from '../../VehicleContext';
 
 const VehiclesScreen = ({ navigation }) => {
-  const { vehicles, setVehicles } = useVehicleContext();
+  const { vehicles } = useVehicleContext();
 
   const navigateAddVehicle = () => {
     navigation.navigate('AddVehicle');
@@ -26,21 +25,6 @@ const VehiclesScreen = ({ navigation }) => {
       onPress={() => navigateVehicleDetails(item)}
     />
   );
-
-  useEffect(() => {
-    const editVehicle = updatedData => {
-      setVehicles(prevVehicles => {
-        return prevVehicles.map(vehicle => {
-          if (vehicle.id === updatedData.id) {
-            return { ...vehicle, ...updatedData };
-          }
-          return vehicle;
-        });
-      });
-    };
-
-    vehicleFactory(editVehicle);
-  }, []);
 
   return (
     <SafeAreaView>

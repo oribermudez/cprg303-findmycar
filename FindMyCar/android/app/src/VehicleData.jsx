@@ -22,7 +22,6 @@ const vehicleData = [
   {
     id: 3,
     alias: "Mom's Car",
-    vehicle: 'Hyndai Elantra',
     vehicleMake: 'Hyndai',
     model: 'Elantra',
     year: 2017,
@@ -33,7 +32,6 @@ const vehicleData = [
   {
     id: 4,
     alias: "Mario's Car",
-    vehicle: 'Honda Civic',
     vehicleMake: 'Honda',
     model: 'Civic',
     year: 2016,

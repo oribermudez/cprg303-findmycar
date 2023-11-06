@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Pressable, Image } from 'react-native';
 import { Divider, Icon, Input, Text, Button } from '@ui-kitten/components';
 import Header from '../header/Header';
-import { vehicleFunction } from './VehicleFactory';
 import { useVehicleContext } from '../../VehicleContext';
 
 const VehicleDetailsScreen = ({ navigation, route }) => {
   const { vehicle } = route.params;
+  const { setVehicles } = useVehicleContext();
   const [disabled, setDisabled] = useState(true);
   const [editedVehicleData, setEditedVehicleData] = useState({ ...vehicle });
 
@@ -19,8 +19,19 @@ const VehicleDetailsScreen = ({ navigation, route }) => {
     setDisabled(true);
   };
 
+  const editVehicle = updatedData => {
+    setVehicles(prevVehicles => {
+      return prevVehicles.map(vehicle => {
+        if (vehicle.id === updatedData.id) {
+          return { ...vehicle, ...updatedData };
+        }
+        return vehicle;
+      });
+    });
+  };
+
   const handleSaveChanges = () => {
-    vehicleFunction(editedVehicleData);
+    editVehicle(editedVehicleData);
     setDisabled(true);
   };
 
