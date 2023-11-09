@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, View, StyleSheet } from 'react-native';
 import {
   Card,
   Divider,
@@ -13,6 +13,7 @@ import Header from '../header/Header';
 const BackIcon = props => <Icon {...props} name="arrow-back" />;
 
 const ActiveSessionScreen = ({ navigation }) => {
+  const favorite = true;
   const navigateBack = () => {
     navigation.navigate('Sessions');
   };
@@ -32,6 +33,7 @@ const ActiveSessionScreen = ({ navigation }) => {
       />
       <Divider />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <Card>
     <Text>
       The Maldives, officially the Republic of Maldives, is a small country in South Asia,
@@ -45,8 +47,42 @@ const ActiveSessionScreen = ({ navigation }) => {
         <Text category="h1">HOLAA</Text>
       </Layout>
 >>>>>>> Stashed changes
+=======
+      <View style={styles.carView}>
+      <View style={styles.aliasContainer}>
+            <Text style={styles.alias}>Tony's Car </Text>
+            {favorite && (
+              <Icon fill="#FFC10F" name="star" style={styles.icon} />
+            )}
+          </View>
+  </View>
+>>>>>>> Stashed changes
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  carView: {
+    backgroundColor: '#20C5B1',
+    width: '100%',
+    height: 176
+  },
+  aliasContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: 7,
+  },
+  alias: {
+    fontFamily: 'Open Sans',
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  icon: {
+    height: 17,
+    width: 17,
+    marginLeft: 10,
+  },
+});
 
 export default ActiveSessionScreen;
