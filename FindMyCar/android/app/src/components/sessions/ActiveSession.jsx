@@ -31,6 +31,7 @@ const ActiveSessionScreen = ({ navigation }) => {
         accessoryLeft={BackAction}
       />
       <Divider />
+<<<<<<< Updated upstream
       <Card>
     <Text>
       The Maldives, officially the Republic of Maldives, is a small country in South Asia,
@@ -38,6 +39,12 @@ const ActiveSessionScreen = ({ navigation }) => {
       It lies southwest of Sri Lanka and India, about 1,000 kilometres (620 mi) from the Asian continent
     </Text>
   </Card>
+=======
+      <Layout
+        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text category="h1">HOLAA</Text>
+      </Layout>
+>>>>>>> Stashed changes
     </SafeAreaView>
   );
 };
