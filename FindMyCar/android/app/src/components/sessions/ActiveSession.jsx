@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, StyleSheet, Image, ScrollView } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Image, ScrollView, Pressable } from 'react-native';
 import {
   Card,
   Divider,
@@ -10,6 +10,7 @@ import {
   Button,
 } from '@ui-kitten/components';
 import Header from '../header/Header';
+import Timer from './Timer';
 
 const BackIcon = props => <Icon {...props} name="arrow-back" />;
 
@@ -43,72 +44,26 @@ const ActiveSessionScreen = ({ navigation }) => {
       <Divider />
 
       <View style={styles.carView}>
+      <Image source={require('./white-car.png')} style={styles.carImage} />
         <View style={styles.aliasContainer}>
-          <Text style={styles.alias}>Tony's Car </Text>
-          {favorite && (
+        
+          <Text style={styles.alias}>Tony's Car {favorite && (
             <Icon fill="#FFC10F" name="star" style={styles.icon} />
-          )}
+          )} </Text>
+          
           <Text style={styles.alias}>CPRG303</Text>
         </View>
         
       </View>
-
-      {/* Wrapping view for everything  */}
-      <View style={styles.wrappingView}>
-        <View style={styles.parkingTimeView}>
-          <Text style={styles.parkingTimeText}>PARKING TIME</Text>
-          <Text style={styles.parkingTime}>01:39:00</Text>
-        </View>
-{/* View container for the 3 boxes */}
-        <View style={styles.boxesInfoContainer}>
-          <View style={styles.zoneContainer}>
-            <Text style={styles.infoTitleText}> ZONE </Text>
-            <Text style={styles.infoText}> ABC </Text>
-          </View>
-
-          <View style={styles.FeeContainer}>
-            <Text style={styles.infoTitleText}> FEE PER HOUR </Text>
-            <Text style={styles.infoText}> $2.5 CAD </Text>
-          </View>
-
-          <View style={styles.statusContainer}>
-            <Text style={styles.infoTitleText}> STATUS </Text>
-            <Text style={styles.infoText}> Active </Text>
-          </View>
-        </View>
-
-        {/* CALCULATED FEE CONTAINER */}
-        <View style={styles.calculatedFeeContainer}>
-          <Text style={styles.calculatedFeeText}> CALCULATED PARKING FEE </Text>
-          <Text style={styles.calculatedFee}> $4.125 CAD </Text>
-        </View>
-
-      
-      <Card style={styles.cardMap}>
-        <View style={styles.mapViewContainer}>
-          <View style={styles.mapContainer} >
-            <Text style={styles.locationText}>LOCATION</Text>
-            <Text style={styles.addressText}>1234 Main St. Vancouver BC</Text>
-          </View>
-          <View >
-            <Image source={require('./map.png')} style={styles.mapImage} />
-          </View>
-        </View>
-      </Card>
+      <View>
+      <Timer />
       </View>
 
+      <Button style={styles.takeMeButton}>
+        <Text style={styles.buttonText}>Take me to my vehicle</Text>
+      </Button>
 
-      {/* BUTTONS */}
       
-        <Button style={styles.button}>
-          Take me to my vehicle
-        </Button>
-      
-        <View>
-          <Button style={styles.button}>
-            End parking session
-          </Button>
-        </View>
       
 
 </ScrollView>
@@ -118,29 +73,50 @@ const ActiveSessionScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   wrappingView:{
-    padding: 20,
+    padding: 30
 
+  },
+  takeMeButton:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+    backgroundColor: '#20C5B1',
+    width: '90%',
+    height: 50,
+    borderRadius: 5,
+    marginRight: 20,
+    marginLeft: 20
+  },
+  buttonText:{
+    fontFamily: 'Open Sans',
+    fontWeight: '700',
+    color: '#ffff',
   },
   carView: {
     backgroundColor: '#20C5B1',
     width: '100%',
     height: 176,
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: 20,
   },
   aliasContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: 7,
-    spaceBetween: 'space-between',
+    marginBottom: 15,
+    marginTop: 20,
+    paddingHorizontal: 20,
   },
   alias: {
     fontFamily: 'Open Sans',
     color: '#FFFFFF',
     fontSize: 13,
     fontWeight: '700',
+    
   },
   icon: {
-    height: 17,
-    width: 17,
+    height: 13,
+    width: 13,
     marginLeft: 10,
   },
   mapImage: {
@@ -150,8 +126,7 @@ const styles = StyleSheet.create({
   cardMap: {
     backgroundColor: '#FFFFFF',
     width: '100%',
-    height: 100,
-    padding: 10,
+    height: 80,
   },
   mapViewContainer:{
     flexDirection: 'row',
@@ -233,6 +208,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
     marginBottom: 20,
   },
+  carImage: {
+    width: 90,
+    height: 90,
+  }
   
 });
 
