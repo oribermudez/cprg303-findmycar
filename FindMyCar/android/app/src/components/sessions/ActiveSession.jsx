@@ -11,14 +11,51 @@ import {
 } from '@ui-kitten/components';
 import Header from '../header/Header';
 import Timer from './Timer';
+import { VehicleProvider, useVehicleContext } from '../../VehicleContext';
 
 const BackIcon = props => <Icon {...props} name="arrow-back" />;
 
-const ActiveSessionScreen = ({ navigation }) => {
-  const favorite = true;
+const ActiveSessionScreen = ({navigation, route }) => {
+
+  
+  const { alias, parkingFee, parkingZone } = route.params;
+
+  
+
+  
+  //vehicle context state
+  const {vehicles, activeSession} = useVehicleContext();
+
+  //function to obtain the object of the vehicle that started the session
+  // {
+  //   id: 2,
+  //   alias: 'My Car',
+  //   vehicleMake: 'Mazda',
+  //   model: '3',
+  //   year: 2019,
+  //   color: 'Red',
+  //   plates: 'DEF2308',
+  //   favorite: false,
+  // },
+  const getVehicle = (alias) => {
+    return vehicles.find((vehicle) => vehicle.alias === activeSession.alias);
+
+  };
+
+  //state active vehicle
+  const [activeVehicle, setActiveVehicle] = useState( {});
+
+  useEffect(() => {
+    const vehicle = getVehicle(activeSession.alias);
+    setActiveVehicle(vehicle);
+  }, [activeSession]);
+  
+  
   const navigateBack = () => {
     navigation.navigate('Sessions');
   };
+
+
 
 
   // const [disabled, setDisabled] = useState(true);
@@ -32,42 +69,47 @@ const ActiveSessionScreen = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
-      <Header />
-      <Divider />
-      <TopNavigation
-        title="Active Session"
-        alignment="center"
-        accessoryLeft={BackAction}
-      />
-      <Divider />
+    <VehicleProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView>
+          <Header />
+          <Divider />
+          <TopNavigation
+            title="Active Session"
+            alignment="center"
+            accessoryLeft={BackAction}
+          />
+          <Divider />
 
-      <View style={styles.carView}>
-      <Image source={require('./white-car.png')} style={styles.carImage} />
-        <View style={styles.aliasContainer}>
+          <View style={styles.carView}>
+            <Image source={require('./white-car.png')} style={styles.carImage} />
+              <View style={styles.aliasContainer}>
+              
+                <Text style={styles.alias}>
+                  {activeVehicle.alias}{activeSession.parkingFee} {activeSession.parkingZone}
+                  {activeVehicle.favorite && <Icon fill="#FFC10F" name="star" style={styles.icon} />}
+                </Text>
+                
+                <Text style={styles.alias}>{activeVehicle.plates}</Text>
+            </View>
+            
+          </View>
+
+
+          <View>
+            <Timer parkingFee={activeSession.parkingFee} parkingZone={activeSession.parkingZone} />
+          </View>
+
+          <Button style={styles.takeMeButton}>
+            <Text style={styles.buttonText}>Take me to my vehicle</Text>
+          </Button>
+
         
-          <Text style={styles.alias}>Tony's Car {favorite && (
-            <Icon fill="#FFC10F" name="star" style={styles.icon} />
-          )} </Text>
-          
-          <Text style={styles.alias}>CPRG303</Text>
-        </View>
         
-      </View>
-      <View>
-      <Timer />
-      </View>
 
-      <Button style={styles.takeMeButton}>
-        <Text style={styles.buttonText}>Take me to my vehicle</Text>
-      </Button>
-
-      
-      
-
-</ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </VehicleProvider>
   );
 };
 

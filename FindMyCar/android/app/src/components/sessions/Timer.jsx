@@ -21,12 +21,18 @@ const getRemaining = (time) => {
     return { hrs: formatNumber(hrs), mins: formatNumber(mins), secs: formatNumber(secs) };
 }
 
-const feePerHour = 2.5;
 
 
 
 
-const Timer=()=>{
+
+const Timer=({ parkingFee, parkingZone})=>{
+
+
+
+
+
+
     const [remainingSecs, setRemainingSecs] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const { hrs, mins, secs } = getRemaining(remainingSecs);
@@ -46,22 +52,26 @@ const Timer=()=>{
         let interval = null;
         if (isActive) {
           interval = setInterval(() => {
-            setRemainingSecs(remainingSecs => remainingSecs + 1);
-            setCalculatedFee(calculatedFee => calculatedFee + feePerHour / 3600); // Update calculated fee every second
+            setRemainingSecs((prevRemainingSecs) => prevRemainingSecs + 1);
+
+            //update calculated fee based on provided parking fee
+            setCalculatedFee(prevCalculatedFee => prevCalculatedFee + parkingFee / 3600); // Update calculated fee every second
         }, 1000);
         } else if (!isActive && remainingSecs !== 0) {
           clearInterval(interval);
         }
         return () => clearInterval(interval);
-      }, [isActive, remainingSecs]);
+      }, [isActive, remainingSecs, parkingFee]);
     
     
       return (
         <ScrollView>
         <View style={styles.container}>
           <StatusBar barStyle="light-content" />
-          <Text style={styles.parkingTimeText}>PARKING TIME</Text>
+          <Text style={styles.parkingTimeText}>{`PARKING TIME: `}</Text>
           <Text style={styles.timerText}>{`${hrs}:${mins}:${secs}`}</Text>
+          
+
           
            
         
@@ -71,12 +81,12 @@ const Timer=()=>{
         <View style={styles.boxesInfoContainer}>
           <View style={styles.zoneContainer}>
             <Text style={styles.infoTitleText}> ZONE </Text>
-            <Text style={styles.infoText}> ABC </Text>
+            <Text style={styles.infoText}> {parkingZone} </Text>
           </View>
 
           <View style={styles.FeeContainer}>
             <Text style={styles.infoTitleText}> FEE PER HOUR </Text>
-            <Text style={styles.infoText}> $2.5 CAD </Text>
+            <Text style={styles.infoText}> {parkingFee} </Text>
           </View>
 
           <View style={styles.statusContainer}>
@@ -100,7 +110,7 @@ const Timer=()=>{
         </View>
         <View style={styles.buttonReset}>
           <TouchableOpacity onPress={this.reset}>
-              <Text style={styles.buttonText}>Reset</Text>
+              <Text style={styles.buttonText}>Rese</Text>
           </TouchableOpacity>
         </View>
 
