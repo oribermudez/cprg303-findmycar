@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-import { Card } from '@ui-kitten/components';
+import { Card, Button } from '@ui-kitten/components';
 
 const formatNumber = number => `0${number}`.slice(-2);
 
@@ -27,13 +27,9 @@ const getRemaining = time => {
 
 const Timer = ({ parkingFee, parkingZone }) => {
   const [remainingSecs, setRemainingSecs] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
   const { hrs, mins, secs } = getRemaining(remainingSecs);
   const [calculatedFee, setCalculatedFee] = useState(0);
-
-  toggle = () => {
-    setIsActive(!isActive);
-  };
 
   reset = () => {
     setRemainingSecs(0);
@@ -88,20 +84,6 @@ const Timer = ({ parkingFee, parkingZone }) => {
           </Text>
         </View>
 
-        {/* Start and Reset buttons */}
-        <View style={styles.buttonStart}>
-          <TouchableOpacity onPress={this.toggle}>
-            <Text style={styles.buttonText}>
-              {isActive ? 'End Parking Session' : 'Start'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonReset}>
-          <TouchableOpacity onPress={this.reset}>
-            <Text style={styles.buttonText}>Reset</Text>
-          </TouchableOpacity>
-        </View>
-
         <View style={styles.wrappingView}>
           <Card style={styles.cardMap}>
             <View style={styles.mapViewContainer}>
@@ -117,6 +99,13 @@ const Timer = ({ parkingFee, parkingZone }) => {
             </View>
           </Card>
         </View>
+
+        {/* Start and Reset buttons */}
+        <Button
+          onPress={() => setIsActive(!isActive)}
+          style={styles.cancelButton}>
+          End Parking Session
+        </Button>
       </View>
     </ScrollView>
   );
@@ -131,10 +120,8 @@ const styles = StyleSheet.create({
   buttonStart: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
     width: '90%',
     backgroundColor: '#20C5B1',
-    height: 50,
     borderRadius: 5,
   },
 
@@ -232,6 +219,12 @@ const styles = StyleSheet.create({
   mapContainer: {
     flexGrow: 1,
     justifyContent: 'center',
+  },
+  cancelButton: {
+    width: '90%',
+    marginBottom: 20,
+    backgroundColor: '#C5C8CF',
+    borderColor: '#C5C8CF',
   },
 });
 

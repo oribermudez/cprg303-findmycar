@@ -6,25 +6,19 @@ import {
   Image,
   ScrollView,
   Pressable,
+  Linking,
+  Alert,
 } from 'react-native';
-import {
-  Card,
-  Divider,
-  Icon,
-  Text,
-  TopNavigation,
-  TopNavigationAction,
-  Button,
-} from '@ui-kitten/components';
+import { Divider, Icon, Text, Button } from '@ui-kitten/components';
 import Header from '../header/Header';
 import Timer from './Timer';
 import { useVehicleContext } from '../../VehicleContext';
-
-const BackIcon = props => <Icon {...props} name="arrow-back" />;
+import MapViewDirections from 'react-native-maps-directions';
+import MapView, { Marker } from 'react-native-maps';
 
 const ActiveSessionScreen = ({ navigation, route }) => {
   const { sessionData } = route.params;
-  const { vehicles } = useVehicleContext();
+  const { vehicles, location } = useVehicleContext();
   const [selectedVehicle, setSelectedVehicle] = useState({});
 
   useEffect(() => {
@@ -34,10 +28,22 @@ const ActiveSessionScreen = ({ navigation, route }) => {
     setSelectedVehicle(selectedVehicle);
   }, [vehicles, sessionData]);
 
-  // const [disabled, setDisabled] = useState(true);
+  const openGoogleMaps = () => {
+    const latitude = location.latitude;
+    const longitude = location.longitude;
+    const label = 'My vehicle';
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}&destination_place_id=${label}`;
 
-  // const handleSaveChanges = () => {
-  //   setDisabled(true);};
+    Linking.canOpenURL(url)
+      .then(response => {
+        if (response) {
+          return Linking.openURL(url);
+        } else {
+          Alert.alert('Error', 'Google Maps is not installed on your device.');
+        }
+      })
+      .catch(err => console.error('An error occurred', err));
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -66,7 +72,7 @@ const ActiveSessionScreen = ({ navigation, route }) => {
           />
         </View>
 
-        <Button style={styles.takeMeButton}>
+        <Button style={styles.takeMeButton} onPress={openGoogleMaps}>
           <Text style={styles.buttonText}>Take me to my vehicle</Text>
         </Button>
       </ScrollView>

@@ -6,16 +6,10 @@ import Geolocation from '@react-native-community/geolocation';
 import Header from '../header/Header';
 
 import { check, PERMISSIONS, request } from 'react-native-permissions';
-
-const initialLocation = {
-  latitude: 51.0276233,
-  longitude: -114.087835,
-  latitudeDelta: 0.02,
-  longitudeDelta: 0.02,
-};
+import { useVehicleContext } from '../../VehicleContext';
 
 const ParkingScreen = ({ navigation }) => {
-  const [location, setLocation] = useState(initialLocation);
+  const { location, setLocation } = useVehicleContext();
   const mapRef = useRef(null);
 
   const goToLocation = () => {
