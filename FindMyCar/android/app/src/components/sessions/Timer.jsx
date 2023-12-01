@@ -25,7 +25,7 @@ const getRemaining = time => {
   };
 };
 
-const Timer = ({ parkingFee, parkingZone }) => {
+const Timer = ({ parkingFee, parkingZone, address }) => {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(true);
   const { hrs, mins, secs } = getRemaining(remainingSecs);
@@ -89,9 +89,7 @@ const Timer = ({ parkingFee, parkingZone }) => {
             <View style={styles.mapViewContainer}>
               <View style={styles.mapContainer}>
                 <Text style={styles.locationText}>LOCATION</Text>
-                <Text style={styles.addressText}>
-                  1234 Main St. Vancouver BC
-                </Text>
+                <Text style={styles.addressText}>{address}</Text>
               </View>
               <View>
                 <Image source={require('./map.png')} style={styles.mapImage} />

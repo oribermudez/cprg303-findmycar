@@ -13,13 +13,13 @@ import { Divider, Icon, Text, Button } from '@ui-kitten/components';
 import Header from '../header/Header';
 import Timer from './Timer';
 import { useVehicleContext } from '../../VehicleContext';
-import MapViewDirections from 'react-native-maps-directions';
-import MapView, { Marker } from 'react-native-maps';
+import Geocoding from 'react-native-geocoding';
 
 const ActiveSessionScreen = ({ navigation, route }) => {
   const { sessionData } = route.params;
   const { vehicles, location } = useVehicleContext();
   const [selectedVehicle, setSelectedVehicle] = useState({});
+  const [address, setAddress] = useState('');
 
   useEffect(() => {
     const selectedVehicle = vehicles.find(
@@ -28,9 +28,21 @@ const ActiveSessionScreen = ({ navigation, route }) => {
     setSelectedVehicle(selectedVehicle);
   }, [vehicles, sessionData]);
 
-  const openGoogleMaps = () => {
-    const latitude = location.latitude;
-    const longitude = location.longitude;
+  const getAddressFromCoordinates = async () => {
+    try {
+      const { latitude, longitude } = location;
+      const response = await Geocoding.from({ latitude, longitude });
+      const address =
+        response.results[0]?.formatted_address || 'Address not found';
+      setAddress(address);
+    } catch (error) {
+      console.error('Error during geocoding:', error);
+      Alert.alert('Error', 'Failed to fetch address. Please try again.');
+    }
+  };
+
+  const openGoogleMaps = async () => {
+    const { latitude, longitude } = location;
     const label = 'My vehicle';
     const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}&destination_place_id=${label}`;
 
@@ -44,6 +56,19 @@ const ActiveSessionScreen = ({ navigation, route }) => {
       })
       .catch(err => console.error('An error occurred', err));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await getAddressFromCoordinates();
+      } catch (error) {
+        console.error('Error during geocoding:', error);
+        Alert.alert('Error', 'Failed to fetch address. Please try again.');
+      }
+    };
+
+    fetchData();
+  }, [location]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -69,6 +94,7 @@ const ActiveSessionScreen = ({ navigation, route }) => {
           <Timer
             parkingFee={sessionData.parkingFee}
             parkingZone={sessionData.parkingZone}
+            address={address}
           />
         </View>
 
