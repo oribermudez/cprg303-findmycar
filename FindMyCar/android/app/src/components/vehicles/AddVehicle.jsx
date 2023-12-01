@@ -14,7 +14,7 @@ import { useVehicleContext } from '../../VehicleContext';
 
 const BackIcon = props => <Icon {...props} name="arrow-back" fill="#fff" />;
 
-const AddVehicleScreen = ({ navigation, route }) => {
+const AddVehicleScreen = ({ navigation }) => {
   const { vehicles, setVehicles } = useVehicleContext();
   const [disabled, setDisabled] = useState(true);
   const [vehicleData, setVehicleData] = useState({

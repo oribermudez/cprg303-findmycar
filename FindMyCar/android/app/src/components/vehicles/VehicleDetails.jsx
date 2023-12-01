@@ -8,7 +8,6 @@ import {
   Button,
   Modal,
   Card,
-  IndexPath,
 } from '@ui-kitten/components';
 import Header from '../header/Header';
 import { useVehicleContext } from '../../VehicleContext';

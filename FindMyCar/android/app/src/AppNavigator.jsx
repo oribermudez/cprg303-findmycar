@@ -49,7 +49,7 @@ const TabNavigator = () => (
     screenOptions={{ headerShown: false }}>
     <Screen name="Parking" component={ParkingScreen} />
     <Screen name="Vehicles" component={VehiclesScreen} />
-    <Screen name="Sessions" component={SessionsScreen} />
+    <Screen name="Sessions" component={ActiveSessionScreen} />
     <Screen name="History" component={HistoryScreen} />
   </Navigator>
 );
