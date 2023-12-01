@@ -1,10 +1,11 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, sta } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   BottomNavigation,
   BottomNavigationTab,
-  Icon, // Import the Icon component
+  Icon,
 } from '@ui-kitten/components';
 import ParkingScreen from './components/parking/Parking';
 import VehiclesScreen from './components/vehicles/Vehicles';
@@ -16,6 +17,8 @@ import ActiveSessionScreen from './components/sessions/ActiveSession';
 import ParkingFormScreen from './components/parking/ParkingForm';
 
 const { Navigator, Screen } = createBottomTabNavigator();
+
+const Stack = createStackNavigator();
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
@@ -46,17 +49,19 @@ const TabNavigator = () => (
     screenOptions={{ headerShown: false }}>
     <Screen name="Parking" component={ParkingScreen} />
     <Screen name="Vehicles" component={VehiclesScreen} />
-    <Screen name="Sessions" component={SessionsScreen} />
+    <Screen name="Sessions" component={ActiveSessionScreen} />
     <Screen name="History" component={HistoryScreen} />
-    <Screen name="AddVehicle" component={AddVehicleScreen} />
-    <Screen name="VehicleDetails" component={VehicleDetailsScreen} />
-    <Screen name="ActiveSession" component={ActiveSessionScreen} />
-    <Screen name="ParkingForm" component={ParkingFormScreen} />
   </Navigator>
 );
 
 export const AppNavigator = () => (
   <NavigationContainer>
-    <TabNavigator />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Tabs" component={TabNavigator} />
+      <Stack.Screen name="AddVehicle" component={AddVehicleScreen} />
+      <Stack.Screen name="VehicleDetails" component={VehicleDetailsScreen} />
+      <Stack.Screen name="ActiveSession" component={ActiveSessionScreen} />
+      <Stack.Screen name="ParkingForm" component={ParkingFormScreen} />
+    </Stack.Navigator>
   </NavigationContainer>
 );

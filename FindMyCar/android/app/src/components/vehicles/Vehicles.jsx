@@ -27,7 +27,7 @@ const VehiclesScreen = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Header />
       <Divider />
       <TopNavigation
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: 24,
-    marginBottom: 20,
+    marginVertical: 20,
   },
   flatListContainer: {
     alignItems: 'center',

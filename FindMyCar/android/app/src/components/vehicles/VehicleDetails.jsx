@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Pressable, Image } from 'react-native';
-import { Divider, Icon, Input, Text, Button } from '@ui-kitten/components';
+import {
+  Divider,
+  Icon,
+  Input,
+  Text,
+  Button,
+  Modal,
+  Card,
+} from '@ui-kitten/components';
 import Header from '../header/Header';
 import { useVehicleContext } from '../../VehicleContext';
 
@@ -9,6 +17,7 @@ const VehicleDetailsScreen = ({ navigation, route }) => {
   const { setVehicles } = useVehicleContext();
   const [disabled, setDisabled] = useState(true);
   const [editedVehicleData, setEditedVehicleData] = useState({ ...vehicle });
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setEditedVehicleData({ ...vehicle });
@@ -33,6 +42,17 @@ const VehicleDetailsScreen = ({ navigation, route }) => {
   const handleSaveChanges = () => {
     editVehicle(editedVehicleData);
     setDisabled(true);
+  };
+
+  const deleteVehicle = () => {
+    setVehicles(prevVehicles =>
+      prevVehicles.filter(item => item.id !== editedVehicleData.id),
+    );
+    navigation.navigate('Vehicles');
+  };
+
+  const toggleModal = () => {
+    setVisible(!visible);
   };
 
   return (
@@ -126,9 +146,14 @@ const VehicleDetailsScreen = ({ navigation, route }) => {
         </View>
       </View>
       {disabled ? (
-        <Button style={styles.button} onPress={() => setDisabled(false)}>
-          Edit Vehicle
-        </Button>
+        <View>
+          <Button style={styles.button} onPress={() => setDisabled(false)}>
+            Edit Vehicle
+          </Button>
+          <Button style={styles.cancelButton} onPress={toggleModal}>
+            Delete Vehicle
+          </Button>
+        </View>
       ) : (
         <View>
           <Button style={styles.button} onPress={handleSaveChanges}>
@@ -139,6 +164,25 @@ const VehicleDetailsScreen = ({ navigation, route }) => {
           </Button>
         </View>
       )}
+      {visible && <View style={styles.overlay}></View>}
+      <Modal
+        visible={visible}
+        backdropStyle={styles.backdrop}
+        onBackdropPress={toggleModal}>
+        <Card disabled={true}>
+          <Text style={styles.modalText}>
+            Are you sure you want to delete this vehicle?
+          </Text>
+          <View style={styles.modalButtons}>
+            <Button onPress={deleteVehicle} style={styles.button}>
+              Yes
+            </Button>
+            <Button onPress={toggleModal} style={styles.cancelButton}>
+              No
+            </Button>
+          </View>
+        </Card>
+      </Modal>
     </ScrollView>
   );
 };
@@ -208,6 +252,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: '#C5C8CF',
     borderColor: '#C5C8CF',
+  },
+  modalButtons: {
+    paddingTop: 20,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1,
   },
 });
 

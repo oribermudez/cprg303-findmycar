@@ -1,82 +1,116 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, StyleSheet, Image, ScrollView, Pressable } from 'react-native';
 import {
-  Card,
-  Divider,
-  Icon,
-  Text,
-  TopNavigation,
-  TopNavigationAction,
-  Button,
-} from '@ui-kitten/components';
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Pressable,
+  Linking,
+  Alert,
+} from 'react-native';
+import { Divider, Icon, Text, Button } from '@ui-kitten/components';
 import Header from '../header/Header';
 import Timer from './Timer';
+import { useVehicleContext } from '../../VehicleContext';
+import Geocoding from 'react-native-geocoding';
 
-const BackIcon = props => <Icon {...props} name="arrow-back" />;
+const ActiveSessionScreen = ({ navigation, route }) => {
+  const { sessionData } = route.params;
+  const { vehicles, location } = useVehicleContext();
+  const [selectedVehicle, setSelectedVehicle] = useState({});
+  const [address, setAddress] = useState('');
 
-const ActiveSessionScreen = ({ navigation }) => {
-  const favorite = true;
-  const navigateBack = () => {
-    navigation.navigate('Sessions');
+  useEffect(() => {
+    const selectedVehicle = vehicles.find(
+      vehicle => vehicle.alias === sessionData.alias,
+    );
+    setSelectedVehicle(selectedVehicle);
+  }, [vehicles, sessionData]);
+
+  const getAddressFromCoordinates = async () => {
+    try {
+      const { latitude, longitude } = location;
+      const response = await Geocoding.from({ latitude, longitude });
+      const address =
+        response.results[0]?.formatted_address || 'Address not found';
+      setAddress(address);
+    } catch (error) {
+      console.error('Error during geocoding:', error);
+      Alert.alert('Error', 'Failed to fetch address. Please try again.');
+    }
   };
 
+  const openGoogleMaps = async () => {
+    const { latitude, longitude } = location;
+    const label = 'My vehicle';
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}&destination_place_id=${label}`;
 
-  // const [disabled, setDisabled] = useState(true);
+    Linking.canOpenURL(url)
+      .then(response => {
+        if (response) {
+          return Linking.openURL(url);
+        } else {
+          Alert.alert('Error', 'Google Maps is not installed on your device.');
+        }
+      })
+      .catch(err => console.error('An error occurred', err));
+  };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await getAddressFromCoordinates();
+      } catch (error) {
+        console.error('Error during geocoding:', error);
+        Alert.alert('Error', 'Failed to fetch address. Please try again.');
+      }
+    };
 
-  // const handleSaveChanges = () => {
-  //   setDisabled(true);};
-
-  const BackAction = () => (
-    <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
-  );
+    fetchData();
+  }, [location]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
-      <Header />
-      <Divider />
-      <TopNavigation
-        title="Active Session"
-        alignment="center"
-        accessoryLeft={BackAction}
-      />
-      <Divider />
+        <Header />
+        <Divider />
+        <Divider />
 
-      <View style={styles.carView}>
-      <Image source={require('./white-car.png')} style={styles.carImage} />
-        <View style={styles.aliasContainer}>
-        
-          <Text style={styles.alias}>Tony's Car {favorite && (
-            <Icon fill="#FFC10F" name="star" style={styles.icon} />
-          )} </Text>
-          
-          <Text style={styles.alias}>CPRG303</Text>
+        <View style={styles.carView}>
+          <Image source={require('./white-car.png')} style={styles.carImage} />
+          <View style={styles.aliasContainer}>
+            <Text style={styles.alias}>
+              {sessionData.alias}
+              {selectedVehicle.favorite && (
+                <Icon fill="#FFC10F" name="star" style={styles.icon} />
+              )}{' '}
+            </Text>
+
+            <Text style={styles.alias}>{selectedVehicle.plates}</Text>
+          </View>
         </View>
-        
-      </View>
-      <View>
-      <Timer />
-      </View>
+        <View>
+          <Timer
+            parkingFee={sessionData.parkingFee}
+            parkingZone={sessionData.parkingZone}
+            address={address}
+          />
+        </View>
 
-      <Button style={styles.takeMeButton}>
-        <Text style={styles.buttonText}>Take me to my vehicle</Text>
-      </Button>
-
-      
-      
-
-</ScrollView>
+        <Button style={styles.takeMeButton} onPress={openGoogleMaps}>
+          <Text style={styles.buttonText}>Take me to my vehicle</Text>
+        </Button>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  wrappingView:{
-    padding: 30
-
+  wrappingView: {
+    padding: 30,
   },
-  takeMeButton:{
+  takeMeButton: {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
@@ -85,9 +119,9 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 5,
     marginRight: 20,
-    marginLeft: 20
+    marginLeft: 20,
   },
-  buttonText:{
+  buttonText: {
     fontFamily: 'Open Sans',
     fontWeight: '700',
     color: '#ffff',
@@ -112,7 +146,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 13,
     fontWeight: '700',
-    
   },
   icon: {
     height: 13,
@@ -128,38 +161,36 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 80,
   },
-  mapViewContainer:{
+  mapViewContainer: {
     flexDirection: 'row',
-
-    
   },
-  locationText:{
+  locationText: {
     fontFamily: 'Open Sans',
     color: '#8F9BB3',
     fontSize: 10,
   },
-  addressText:{
+  addressText: {
     color: '#000000',
     fontSize: 12,
   },
-  mapContainer:{
+  mapContainer: {
     flexGrow: 1,
     justifyContent: 'center',
   },
-  parkingTimeView:{
+  parkingTimeView: {
     width: '80%',
     margin: 40,
     height: 50,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  parkingTimeText:{
+  parkingTimeText: {
     fontFamily: 'Open Sans',
     color: '#8F9BB3',
     fontSize: 12,
   },
-  parkingTime:{
+  parkingTime: {
     fontFamily: 'Open Sans',
     fontWeight: '700',
     //space between the numbers
@@ -167,36 +198,36 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 30,
   },
-  boxesInfoContainer:{
+  boxesInfoContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '80%',
     height: 50,
     marginHorizontal: 40,
   },
-  infoTitleText:{
+  infoTitleText: {
     fontFamily: 'Open Sans',
     color: '#8F9BB3',
     fontSize: 12,
   },
-  infoText:{
+  infoText: {
     fontFamily: 'Open Sans',
     color: '#000000',
     fontSize: 14,
   },
-  calculatedFeeContainer:{
+  calculatedFeeContainer: {
     width: '80%',
     margin: 40,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  calculatedFeeText:{
+  calculatedFeeText: {
     fontFamily: 'Open Sans',
     color: '#8F9BB3',
     fontSize: 12,
   },
-  calculatedFee:{
+  calculatedFee: {
     fontFamily: 'Open Sans',
     fontWeight: '700',
     //space between the numbers
@@ -211,8 +242,7 @@ const styles = StyleSheet.create({
   carImage: {
     width: 90,
     height: 90,
-  }
-  
+  },
 });
 
 export default ActiveSessionScreen;
