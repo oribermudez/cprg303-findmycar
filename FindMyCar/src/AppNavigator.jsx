@@ -7,14 +7,12 @@ import {
   BottomNavigationTab,
   Icon,
 } from '@ui-kitten/components';
-import ParkingScreen from './components/parking/Parking';
-import VehiclesScreen from './components/vehicles/Vehicles';
-import SessionsScreen from './components/sessions/Sessions';
-import HistoryScreen from './components/history/History';
-import AddVehicleScreen from './components/vehicles/AddVehicle';
-import VehicleDetailsScreen from './components/vehicles/VehicleDetails';
-import ActiveSessionScreen from './components/sessions/ActiveSession';
-import ParkingFormScreen from './components/parking/ParkingForm';
+import ParkingScreen from './screens/Parking';
+import VehiclesScreen from './screens/Vehicles';
+import AddVehicleScreen from './screens/AddVehicle';
+import VehicleDetailsScreen from './screens/VehicleDetails';
+import ActiveSessionScreen from './screens/ActiveSession';
+import ParkingFormScreen from './screens/ParkingForm';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -32,14 +30,6 @@ const BottomTabBar = ({ navigation, state }) => (
       title="Vehicles"
       icon={props => <Icon {...props} name="car-outline" />}
     />
-    <BottomNavigationTab
-      title="Sessions"
-      icon={props => <Icon {...props} name="pin-outline" />}
-    />
-    <BottomNavigationTab
-      title="History"
-      icon={props => <Icon {...props} name="clock-outline" />}
-    />
   </BottomNavigation>
 );
 
@@ -49,8 +39,6 @@ const TabNavigator = () => (
     screenOptions={{ headerShown: false }}>
     <Screen name="Parking" component={ParkingScreen} />
     <Screen name="Vehicles" component={VehiclesScreen} />
-    <Screen name="Sessions" component={ActiveSessionScreen} />
-    <Screen name="History" component={HistoryScreen} />
   </Navigator>
 );
 

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import vehicleData from './VehicleData';
+import vehicleData from './dataMocks/VehicleData';
 
 const VehicleContext = createContext();
 

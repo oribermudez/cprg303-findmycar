@@ -9,8 +9,8 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import Header from '../header/Header';
-import { useVehicleContext } from '../../VehicleContext';
+import Header from '../components/Header';
+import { useVehicleContext } from '../VehicleContext';
 
 const BackIcon = props => <Icon {...props} name="arrow-back" fill="#fff" />;
 
@@ -112,6 +112,7 @@ const AddVehicleScreen = ({ navigation }) => {
           <Text style={styles.label}>YEAR</Text>
           <Input
             style={styles.input}
+            keyboardType="numeric"
             placeholder="e.g. 2017"
             value={vehicleData.year.toString()}
             onChangeText={text =>

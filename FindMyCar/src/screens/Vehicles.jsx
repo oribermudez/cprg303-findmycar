@@ -1,9 +1,9 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, FlatList } from 'react-native';
 import { Divider, Button, TopNavigation } from '@ui-kitten/components';
-import Header from '../header/Header';
-import VehicleCard from './VehicleCard';
-import { useVehicleContext } from '../../VehicleContext';
+import Header from '../components/Header';
+import VehicleCard from '../components/VehicleCard';
+import { useVehicleContext } from '../VehicleContext';
 
 const VehiclesScreen = ({ navigation }) => {
   const { vehicles } = useVehicleContext();

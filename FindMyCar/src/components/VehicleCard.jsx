@@ -24,7 +24,7 @@ const VehicleCard = ({ alias, vehicle, plates, favorite, onPress }) => (
             </View>
           </View>
         </View>
-        <Image source={require('./car.png')} style={styles.carImage} />
+        <Image source={require('../assets/car.png')} style={styles.carImage} />
       </View>
     </Pressable>
   </Card>

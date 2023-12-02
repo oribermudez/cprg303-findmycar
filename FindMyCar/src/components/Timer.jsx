@@ -4,13 +4,11 @@ import {
   Text,
   View,
   StatusBar,
-  TouchableOpacity,
-  Dimensions,
   Image,
   ScrollView,
 } from 'react-native';
 
-import { Card, Button } from '@ui-kitten/components';
+import { Card, Button, Modal } from '@ui-kitten/components';
 
 const formatNumber = number => `0${number}`.slice(-2);
 
@@ -25,7 +23,13 @@ const getRemaining = time => {
   };
 };
 
-const Timer = ({ parkingFee, parkingZone, address }) => {
+const Timer = ({
+  parkingFee,
+  parkingZone,
+  navigateHome,
+  toggleModal,
+  visible,
+}) => {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(true);
   const { hrs, mins, secs } = getRemaining(remainingSecs);
@@ -49,6 +53,12 @@ const Timer = ({ parkingFee, parkingZone, address }) => {
     }
     return () => clearInterval(interval);
   }, [isActive, remainingSecs]);
+
+  const handleEndParkingSession = () => {
+    setIsActive(!isActive);
+    reset();
+    navigateHome();
+  };
 
   return (
     <ScrollView>
@@ -79,8 +89,7 @@ const Timer = ({ parkingFee, parkingZone, address }) => {
         <View style={styles.calculatedFeeContainer}>
           <Text style={styles.calculatedFeeText}> CALCULATED PARKING FEE </Text>
           <Text style={styles.calculatedFee}>
-            {' '}
-            ${calculatedFee.toFixed(2)} CAD{' '}
+            ${calculatedFee.toFixed(2)} CAD
           </Text>
         </View>
 
@@ -89,22 +98,41 @@ const Timer = ({ parkingFee, parkingZone, address }) => {
             <View style={styles.mapViewContainer}>
               <View style={styles.mapContainer}>
                 <Text style={styles.locationText}>LOCATION</Text>
-                <Text style={styles.addressText}>{address}</Text>
+                <Text style={styles.addressText}>Calgary, Alberta</Text>
               </View>
               <View>
-                <Image source={require('./map.png')} style={styles.mapImage} />
+                <Image
+                  source={require('../assets/map.png')}
+                  style={styles.mapImage}
+                />
               </View>
             </View>
           </Card>
         </View>
 
         {/* Start and Reset buttons */}
-        <Button
-          onPress={() => setIsActive(!isActive)}
-          style={styles.cancelButton}>
+        <Button onPress={toggleModal} style={styles.cancelButton}>
           End Parking Session
         </Button>
       </View>
+      <Modal
+        visible={visible}
+        backdropStyle={styles.backdrop}
+        onBackdropPress={toggleModal}>
+        <Card disabled={true}>
+          <Text style={styles.modalText}>
+            Are you sure you want to end the parking session?
+          </Text>
+          <View style={styles.modalButtons}>
+            <Button onPress={handleEndParkingSession} style={styles.button}>
+              Yes
+            </Button>
+            <Button onPress={toggleModal} style={styles.noButton}>
+              No
+            </Button>
+          </View>
+        </Card>
+      </Modal>
     </ScrollView>
   );
 };
@@ -223,6 +251,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: '#C5C8CF',
     borderColor: '#C5C8CF',
+  },
+  button: {
+    marginHorizontal: 24,
+    marginBottom: 20,
+  },
+  noButton: {
+    marginHorizontal: 24,
+    marginBottom: 20,
+    backgroundColor: '#C5C8CF',
+    borderColor: '#C5C8CF',
+  },
+  modalButtons: {
+    paddingTop: 20,
   },
 });
 

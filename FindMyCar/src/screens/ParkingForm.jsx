@@ -12,13 +12,13 @@ import {
   SelectItem,
   IndexPath,
 } from '@ui-kitten/components';
-import Header from '../header/Header';
-import { useVehicleContext } from '../../VehicleContext';
+import Header from '../components/Header';
+import { useVehicleContext } from '../VehicleContext';
 
 const BackIcon = props => <Icon {...props} name="arrow-back" fill="#fff" />;
 
-const ParkingFormScreen = ({ navigation, route }) => {
-  const { vehicles, setVehicles } = useVehicleContext();
+const ParkingFormScreen = ({ navigation }) => {
+  const { vehicles } = useVehicleContext();
   const [disabled, setDisabled] = useState(true);
   const [selected, setSelected] = useState(new IndexPath(0));
   const [sessionData, setSessionData] = useState({
@@ -38,11 +38,6 @@ const ParkingFormScreen = ({ navigation, route }) => {
   const renderOption = (item, index) => (
     <SelectItem key={index} title={item.alias} />
   );
-
-  const addVehicle = newVehicle => {
-    setVehicles([...vehicles, newVehicle]);
-    navigateBack();
-  };
 
   const handleStartSession = () => {
     navigateActiveSession();
@@ -95,6 +90,7 @@ const ParkingFormScreen = ({ navigation, route }) => {
           <Text style={styles.label}>PARKING FEE</Text>
           <Input
             style={styles.input}
+            keyboardType="numeric"
             placeholder="e.g. 2.5"
             value={sessionData.parkingFee}
             onChangeText={text =>
@@ -109,6 +105,7 @@ const ParkingFormScreen = ({ navigation, route }) => {
           <Text style={styles.label}>PARKING ZONE</Text>
           <Input
             style={styles.input}
+            keyboardType="numeric"
             placeholder="e.g. 3769"
             value={sessionData.parkingZone}
             onChangeText={text =>

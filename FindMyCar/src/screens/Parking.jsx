@@ -3,10 +3,10 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Divider } from '@ui-kitten/components';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import Header from '../header/Header';
+import Header from '../components/Header';
 
 import { check, PERMISSIONS, request } from 'react-native-permissions';
-import { useVehicleContext } from '../../VehicleContext';
+import { useVehicleContext } from '../VehicleContext';
 
 const ParkingScreen = ({ navigation }) => {
   const { location, setLocation } = useVehicleContext();

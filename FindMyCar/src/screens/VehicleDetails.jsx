@@ -9,8 +9,8 @@ import {
   Modal,
   Card,
 } from '@ui-kitten/components';
-import Header from '../header/Header';
-import { useVehicleContext } from '../../VehicleContext';
+import Header from '../components/Header';
+import { useVehicleContext } from '../VehicleContext';
 
 const VehicleDetailsScreen = ({ navigation, route }) => {
   const { vehicle } = route.params;
@@ -65,7 +65,7 @@ const VehicleDetailsScreen = ({ navigation, route }) => {
         </Pressable>
         <View style={styles.carCard}>
           <Image
-            source={require('./car-details.png')}
+            source={require('../assets/car-details.png')}
             alt="Car Image"
             style={styles.image}
           />

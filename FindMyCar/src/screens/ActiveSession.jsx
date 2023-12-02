@@ -10,16 +10,20 @@ import {
   Alert,
 } from 'react-native';
 import { Divider, Icon, Text, Button } from '@ui-kitten/components';
-import Header from '../header/Header';
-import Timer from './Timer';
-import { useVehicleContext } from '../../VehicleContext';
-import Geocoding from 'react-native-geocoding';
+import Header from '../components/Header';
+import Timer from '../components/Timer';
+import { useVehicleContext } from '../VehicleContext';
 
 const ActiveSessionScreen = ({ navigation, route }) => {
   const { sessionData } = route.params;
   const { vehicles, location } = useVehicleContext();
   const [selectedVehicle, setSelectedVehicle] = useState({});
   const [address, setAddress] = useState('');
+  const [visible, setVisible] = useState(false);
+
+  const navigateHome = () => {
+    navigation.navigate('Parking');
+  };
 
   useEffect(() => {
     const selectedVehicle = vehicles.find(
@@ -27,19 +31,6 @@ const ActiveSessionScreen = ({ navigation, route }) => {
     );
     setSelectedVehicle(selectedVehicle);
   }, [vehicles, sessionData]);
-
-  const getAddressFromCoordinates = async () => {
-    try {
-      const { latitude, longitude } = location;
-      const response = await Geocoding.from({ latitude, longitude });
-      const address =
-        response.results[0]?.formatted_address || 'Address not found';
-      setAddress(address);
-    } catch (error) {
-      console.error('Error during geocoding:', error);
-      Alert.alert('Error', 'Failed to fetch address. Please try again.');
-    }
-  };
 
   const openGoogleMaps = async () => {
     const { latitude, longitude } = location;
@@ -57,18 +48,9 @@ const ActiveSessionScreen = ({ navigation, route }) => {
       .catch(err => console.error('An error occurred', err));
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await getAddressFromCoordinates();
-      } catch (error) {
-        console.error('Error during geocoding:', error);
-        Alert.alert('Error', 'Failed to fetch address. Please try again.');
-      }
-    };
-
-    fetchData();
-  }, [location]);
+  const toggleModal = () => {
+    setVisible(!visible);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -78,13 +60,16 @@ const ActiveSessionScreen = ({ navigation, route }) => {
         <Divider />
 
         <View style={styles.carView}>
-          <Image source={require('./white-car.png')} style={styles.carImage} />
+          <Image
+            source={require('../assets/white-car.png')}
+            style={styles.carImage}
+          />
           <View style={styles.aliasContainer}>
             <Text style={styles.alias}>
               {sessionData.alias}
               {selectedVehicle.favorite && (
                 <Icon fill="#FFC10F" name="star" style={styles.icon} />
-              )}{' '}
+              )}
             </Text>
 
             <Text style={styles.alias}>{selectedVehicle.plates}</Text>
@@ -95,8 +80,12 @@ const ActiveSessionScreen = ({ navigation, route }) => {
             parkingFee={sessionData.parkingFee}
             parkingZone={sessionData.parkingZone}
             address={address}
+            navigateHome={navigateHome}
+            toggleModal={toggleModal}
+            visible={visible}
           />
         </View>
+        {visible && <View style={styles.overlay}></View>}
 
         <Button style={styles.takeMeButton} onPress={openGoogleMaps}>
           <Text style={styles.buttonText}>Take me to my vehicle</Text>
@@ -151,6 +140,7 @@ const styles = StyleSheet.create({
     height: 13,
     width: 13,
     marginLeft: 10,
+    marginRight: 20,
   },
   mapImage: {
     width: 50,
@@ -242,6 +232,11 @@ const styles = StyleSheet.create({
   carImage: {
     width: 90,
     height: 90,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1,
   },
 });
 
